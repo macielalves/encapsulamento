@@ -63,8 +63,8 @@ class Pessoa:
     def __no_access(self):
         print("Sem permissão!")
     # @__no_access.setter
-    # def f(self, txt):
-    #     print("Sem permissão para alterar")
+    def __morreu(self):
+         print(f"Operação não realizada. {self.nome} está mort{'o'if self.sexo.upper() == 'M'else 'a'}")
     # end warning
     @nome.setter
     def nome(self, txt):self.__no_access
@@ -83,19 +83,6 @@ class Pessoa:
     @conjuge.setter
     def conjuge(self, txt):self.__no_access
 
-    def envelhecer(self):
-        if self.is_alive:
-            if self.__idade < 21:
-                self.__altura += 5  # Cresce 5cm a cada ano 
-            self.__idade += 1  # Envelhece um ano
-    
-    def pronomes(self):
-        if self.sexo.upper() == 'M':
-            return 'ele/dele'
-        elif self.sexo.upper() == 'F':
-            return 'ela/dela'
-        return 'Tanque de guerra'
-
     @property
     def is_alive(self):
         if self.__estado == 'vivo':
@@ -108,26 +95,58 @@ class Pessoa:
             self.morrer()
         elif self.is_alive:
             print(f"{self.nome} ainda está {self.vivo}!")
+
+    def aniversario(self):
+        print(f"{self.nome} está com {self.idade} anos e {self.altura} cm de altura")
+
+    def envelhecer(self):
+        if self.is_alive:
+            if self.__idade < 21:
+                self.__altura += 5  # Cresce 5cm a cada execução se idade menor que 21
+            self.__idade += 1  # Envelhece um ano
+    
+    def pronomes(self):
+        if self.sexo.upper() == 'M':
+            return 'ele/dele'
+        elif self.sexo.upper() == 'F':
+            return 'ela/dela'
+        return 'Tanque de guerra'
     
     def engordar(self, peso):
         if self.is_alive:
             try:self.__peso += peso if peso > 0 else 0
             except Exception as e:print(e)
+        else:
+            self.__morreu()
 
     def emagrecer(self, peso):
         if self.is_alive:
             try:self.__peso -= abs(peso)
             except Exception as e:print(e)
+        else:
+            self.__morreu()
     
     def crescer(self, altura):
         if self.is_alive:
             if self.idade <= 21:
                 self.__altura += altura
+            else:
+                print(f"{self.nome} não pode mais crescer pois está com 21 anos ou mais")
     
     def requisitos_casamento(self, p1, p2):
-        if p1.is_alive and p1.idade >= 18:
-            if p2.is_alive and p2.idade >= 18:
+        if p1.is_alive and p1.idade >= 18 and p1.estado_civil != 'casado':
+            if p2.is_alive and p2.idade >= 18 and p2.estado_civil != 'casado':
                 return True
+            else:
+                if p2.is_alive and p2.idade < 18:
+                    print(f"Casamento não permitido. {p2.nome} é de menor.")
+                elif p2.is_alive and p2.estado_civil == 'casado':
+                    print(f"Casamento não realizado. {p1.nome} é casado.")
+        else:
+            if p1.is_alive and p1.idade < 18:
+                print(f"Casamento não permitido. {p1.nome} é de menor.")
+            elif p1.is_alive and p1.estado_civil == 'casado':
+                print(f"Casamento não realizado. {p1.nome} é casado.")
     
     def casar(self, conjuge):
         if self.is_alive:
@@ -135,6 +154,8 @@ class Pessoa:
             if self.requisitos_casamento(self, self.conjuge):
                 self.__estado_civil = 'casado(a)'
                 print(f'{self.nome} casou-se com {self.conjuge.nome}!')
+        else:
+            self.__morreu()
 
     def morrer(self):
         if self.is_alive:
@@ -160,6 +181,8 @@ class Pessoa:
                 self.__estado = 'vivo'
             else:
                 print('Não foi posível reviver!')
+        else:
+            print("Ainda ta cedo pra tentar reviver!")
 
     def __str__(self):
         return f'nome: {self.nome}, estado civíl: {self.estado_civil}, idade: {self.idade}, vivo/morto: {self.estado}, peso: {self.peso}Kg, altura: {self.altura / 100}m'

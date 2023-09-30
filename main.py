@@ -9,4 +9,6 @@ carlos = Pessoa('Carlos', 2, 11, 80, 'M')
 jonas = Pessoa('Jonas', 34, 70, 180, 'M')
 
 maria.idade = 10
-maria.morrer()
+maria.aniversario()
+
+pedro.crescer(2)
