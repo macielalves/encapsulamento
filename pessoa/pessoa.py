@@ -131,16 +131,16 @@ class Pessoa:
     
     def crescer(self, altura):
         if self.is_alive:
-            if self.idade <= 21:
+            if self.__idade <= 21:
                 self.__altura += altura
             else:
                 print(f"{self.nome} não pode mais crescer pois está com 21 anos ou mais")
     
     def pode_casar(self):
-        if self.is_alive and self.idade >= 18 and 'casado' not in self.estado_civil:
+        if self.is_alive and self.__idade >= 18 and 'casado' not in self.estado_civil:
             return True
         else:
-            if self.is_alive and self.idade < 18:
+            if self.is_alive and self.__idade < 18:
                 print(f"Casamento não permitido. {self.nome} é de menor.")
             elif self.is_alive and 'casado' in self.estado_civil:
                 print(f"Casamento não realizado. {self.nome} é casado.")
