@@ -1,6 +1,6 @@
 from random import seed, choice
 
-from httpx import get
+
 seed()
 
 

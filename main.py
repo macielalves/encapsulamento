@@ -1,4 +1,4 @@
-from pessoa import Pessoa, Seguranca
+from pessoas import Pessoa, Seguranca
 
 maria = Pessoa('Maria', 5, 20, 100,'F')
 joao = Pessoa('João', 12, 40, 140, 'M')
@@ -38,3 +38,4 @@ joao.idade = 50
 
 # outros testes
 print(joao.get_dados('esta'))
+print(type(joao))
