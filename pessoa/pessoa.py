@@ -85,7 +85,7 @@ class Pessoa:
 
     def envelhecer(self):
         if self.is_alive:
-            if self.__idade <= 21:
+            if self.__idade < 21:
                 self.__altura += 5  # Cresce 5cm a cada ano 
             self.__idade += 1  # Envelhece um ano
     
