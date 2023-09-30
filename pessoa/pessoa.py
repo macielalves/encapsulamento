@@ -1,4 +1,5 @@
-from doctest import run_docstring_examples
+from random import seed, choice
+seed()
 
 
 class Pessoa:
@@ -20,8 +21,8 @@ class Pessoa:
             idade (int): Quantidade de anos
             peso (float): valor em Kg
             altura (float): valor em cm
-            sexo (str): [M]asculino, [F]eminino
-            estado (str): [v]ivo, [m]orto
+            sexo (str): ['M']asculino, ['F']eminino
+            estado (str): 'vivo', 'morto'
             estado_civil (str): 'solteiro', 'casado', viúvo
             conjuge (object): Um objeto Pessoa()
         """
@@ -60,7 +61,7 @@ class Pessoa:
     # start warning
     @property
     def __no_access(self):
-        print("Sem permissão")
+        print("Sem permissão!")
     # @__no_access.setter
     # def f(self, txt):
     #     print("Sem permissão para alterar")
@@ -83,34 +84,82 @@ class Pessoa:
     def conjuge(self, txt):self.__no_access
 
     def envelhecer(self):
-        if self.__idade <= 21:
-            self.__altura += 0.5  # Cresce 0,5 a cada ano 
-        self.__idade += 1  # Envelhece um ano
+        if self.is_alive:
+            if self.__idade <= 21:
+                self.__altura += 5  # Cresce 5cm a cada ano 
+            self.__idade += 1  # Envelhece um ano
+    
+    def pronomes(self):
+        if self.sexo.upper() == 'M':
+            return 'ele/dele'
+        elif self.sexo.upper() == 'F':
+            return 'ela/dela'
+        return 'Tanque de guerra'
+
+    @property
+    def is_alive(self):
+        if self.__estado == 'vivo':
+            return True
+        return False
+    @is_alive.setter
+    def is_alive(self, txt):
+        if 'false' in (a:=str(txt).lower()):
+            print(a)
+            self.morrer()
+        elif self.is_alive:
+            print(f"{self.nome} ainda está {self.vivo}!")
     
     def engordar(self, peso):
-        try:self.__peso += peso if peso > 0 else 0
-        except Exception as e:print(e)
+        if self.is_alive:
+            try:self.__peso += peso if peso > 0 else 0
+            except Exception as e:print(e)
 
     def emagrecer(self, peso):
-        try:self.__peso -= abs(peso)
-        except Exception as e:print(e)
+        if self.is_alive:
+            try:self.__peso -= abs(peso)
+            except Exception as e:print(e)
     
     def crescer(self, altura):
-        if self.idade <= 21:
-            self.__altura += altura
+        if self.is_alive:
+            if self.idade <= 21:
+                self.__altura += altura
     
     def requisitos_casamento(self, p1, p2):
-        if p1.estado == 'vivo' and p1.idade >= 18:
-            if p2.estado == 'vivo' and p2.idade >= 18:
+        if p1.is_alive and p1.idade >= 18:
+            if p2.is_alive and p2.idade >= 18:
                 return True
     
     def casar(self, conjuge):
-        if self.requisitos_casamento(self, conjuge):
-            self.__estado_civil = 'casado(a)'
-            print(f'{self.nome} casou-se com {conjuge.nome}!')
+        if self.is_alive:
+            self.__conjuge = conjuge
+            if self.requisitos_casamento(self, self.conjuge):
+                self.__estado_civil = 'casado(a)'
+                print(f'{self.nome} casou-se com {self.conjuge.nome}!')
 
     def morrer(self):
-        self.__estado = 'morto'
+        if self.is_alive:
+            self.__estado = 'morto'
+            print(f'{self.nome} morreu!')
+        else:
+            print(f"{self.nome} ja está morto!")
+
+    @property
+    def a(self):
+        self.__a = choice(range(0, 1_000, 1))
+        return self.__a
+    @property
+    def b(self):
+        self.__b = choice(range(0, 1_000, 1))
+        return self.__b
+    def reviver(self):
+        """Tentar reviver?"""
+        if not self.is_alive:
+            a = self.a
+            b = self.b
+            if a == b:
+                self.__estado = 'vivo'
+            else:
+                print('Não foi posível reviver!')
 
     def __str__(self):
         return f'nome: {self.nome}, estado civíl: {self.estado_civil}, idade: {self.idade}, vivo/morto: {self.estado}, peso: {self.peso}Kg, altura: {self.altura / 100}m'

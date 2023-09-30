@@ -1,8 +1,12 @@
 from pessoa import Pessoa
 
-p1 = Pessoa('Maria', 23, 45.0, 160,'F')
-p2 = Pessoa('Paulo', 25, 59.0, 170, 'M')
-p1.envelhecer()
-p1.casar(p2)
+maria = Pessoa('Maria', 5, 20, 100,'F')
+joao = Pessoa('João', 12, 40, 140, 'M')
+pedro = Pessoa('Pedro', 22, 65, 170, 'M')
+bia = Pessoa('Bia', 18, 55, 160, 'F')
+julia = Pessoa('Julia', 30, 65, 170, 'F')
+carlos = Pessoa('Carlos', 2, 11, 80, 'M')
+jonas = Pessoa('Jonas', 34, 70, 180, 'M')
 
-print(p1.estado_civil)
+maria.idade = 10
+maria.morrer()
