@@ -12,3 +12,20 @@ maria.idade = 10
 maria.aniversario()
 
 pedro.crescer(2)
+
+bia.casar(carlos)
+
+pedro.casar(maria)
+# pedro.__estado_civil = 'casado(a)'  # burla
+pedro.casar(julia)
+pedro.casar(bia)
+
+maria.morrer()
+maria.engordar()
+
+bia.casar(jonas)
+bia.morrer()
+
+pedro.morrer()
+
+jonas.casar(julia)

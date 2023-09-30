@@ -94,7 +94,7 @@ class Pessoa:
             print(a)
             self.morrer()
         elif self.is_alive:
-            print(f"{self.nome} ainda está {self.vivo}!")
+            print(f"{self.nome} ainda está viv{'a'if self.sexo.upper() == 'F'else 'o'}!")
 
     def aniversario(self):
         print(f"{self.nome} está com {self.idade} anos e {self.altura} cm de altura")
@@ -112,7 +112,7 @@ class Pessoa:
             return 'ela/dela'
         return 'Tanque de guerra'
     
-    def engordar(self, peso):
+    def engordar(self, peso=0):
         if self.is_alive:
             try:self.__peso += peso if peso > 0 else 0
             except Exception as e:print(e)
@@ -133,27 +133,23 @@ class Pessoa:
             else:
                 print(f"{self.nome} não pode mais crescer pois está com 21 anos ou mais")
     
-    def requisitos_casamento(self, p1, p2):
-        if p1.is_alive and p1.idade >= 18 and p1.estado_civil != 'casado':
-            if p2.is_alive and p2.idade >= 18 and p2.estado_civil != 'casado':
-                return True
-            else:
-                if p2.is_alive and p2.idade < 18:
-                    print(f"Casamento não permitido. {p2.nome} é de menor.")
-                elif p2.is_alive and p2.estado_civil == 'casado':
-                    print(f"Casamento não realizado. {p1.nome} é casado.")
+    def pode_casar(self):
+        if self.is_alive and self.idade >= 18 and 'casado' not in self.estado_civil:
+            return True
         else:
-            if p1.is_alive and p1.idade < 18:
-                print(f"Casamento não permitido. {p1.nome} é de menor.")
-            elif p1.is_alive and p1.estado_civil == 'casado':
-                print(f"Casamento não realizado. {p1.nome} é casado.")
+            if self.is_alive and self.idade < 18:
+                print(f"Casamento não permitido. {self.nome} é de menor.")
+            elif self.is_alive and 'casado' in self.estado_civil:
+                print(f"Casamento não realizado. {self.nome} é casado.")
     
-    def casar(self, conjuge):
+    def casar(self, conjuge=None):
         if self.is_alive:
-            self.__conjuge = conjuge
-            if self.requisitos_casamento(self, self.conjuge):
+            if conjuge is not None and self.pode_casar() and conjuge.pode_casar():
+                self.__conjuge = conjuge
                 self.__estado_civil = 'casado(a)'
-                print(f'{self.nome} casou-se com {self.conjuge.nome}!')
+                self.__conjuge.__estado_civil = 'casado(a)'
+                self.__conjuge.__conjuge = self
+                print(f'{self.nome} está casado com {self.__conjuge.nome}!')
         else:
             self.__morreu()
 
@@ -161,6 +157,14 @@ class Pessoa:
         if self.is_alive:
             self.__estado = 'morto'
             print(f'{self.nome} morreu!')
+            if self.__conjuge is not None:
+                try:
+                    self.__conjuge.__estado_civil = f"viúv{'a'if self.__conjuge.sexo.upper() == 'F' else 'o'}"  # -*- atenção -*-
+                    print(f"{self.__conjuge.nome} ficou {self.__conjuge.estado_civil}")
+                    self.__conjuge = None
+                except Exception as e:
+                    print('Um alienígena?')
+                    print(e)
         else:
             print(f"{self.nome} ja está morto!")
 
