@@ -1,4 +1,4 @@
-from pessoa import Pessoa
+from pessoa import Pessoa, Seguranca
 
 maria = Pessoa('Maria', 5, 20, 100,'F')
 joao = Pessoa('João', 12, 40, 140, 'M')
@@ -37,5 +37,4 @@ print(pedro.idade)
 joao.idade = 50
 
 # outros testes
-d_joao = joao.__dict__
-print(d_joao.get('_Pessoa__nome', 'Não encontrado'))
+print(joao.dados)

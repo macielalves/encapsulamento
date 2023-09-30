@@ -69,6 +69,9 @@ class Pessoa:
     def __morreu(self):
          print(f"Operação não realizada. {self.nome} está mort{'o'if self.sexo.upper() == 'M'else 'a'}")
     # end warning
+    @property
+    def dados(self):
+        return self.__dict__
     @nome.setter
     def nome(self, txt):self.__no_access
     @idade.setter
