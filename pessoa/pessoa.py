@@ -1,3 +1,6 @@
+from doctest import run_docstring_examples
+
+
 class Pessoa:
     def __init__(
             self,
@@ -96,9 +99,15 @@ class Pessoa:
         if self.idade <= 21:
             self.__altura += altura
     
+    def requisitos_casamento(self, p1, p2):
+        if p1.estado == 'vivo' and p1.idade >= 18:
+            if p2.estado == 'vivo' and p2.idade >= 18:
+                return True
+    
     def casar(self, conjuge):
-        self.__estado_civil = 'casado(a)'
-        self
+        if self.requisitos_casamento(self, conjuge):
+            self.__estado_civil = 'casado(a)'
+            print(f'{self.nome} casou-se com {conjuge.nome}!')
 
     def morrer(self):
         self.__estado = 'morto'
