@@ -37,4 +37,4 @@ print(pedro.idade)
 joao.idade = 50
 
 # outros testes
-print(joao.dados)
+print(joao.get_dados('esta'))

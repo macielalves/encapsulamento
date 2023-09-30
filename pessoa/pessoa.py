@@ -1,4 +1,6 @@
 from random import seed, choice
+
+from httpx import get
 seed()
 
 
@@ -69,9 +71,7 @@ class Pessoa:
     def __morreu(self):
          print(f"Operação não realizada. {self.nome} está mort{'o'if self.sexo.upper() == 'M'else 'a'}")
     # end warning
-    @property
-    def dados(self):
-        return self.__dict__
+
     @nome.setter
     def nome(self, txt):self.__no_access
     @idade.setter
@@ -173,6 +173,16 @@ class Pessoa:
                     print(e)
         else:
             print(f"{self.nome} ja está morto!")
+    
+    def get_dados(self, key:str|None=None):
+        dados = self.__dict__
+        if key:
+            found = {}
+            for _key in dados.keys():
+                if key in _key:
+                    found[_key] = dados.get(_key, 'N/A (º_º)')
+            return found
+        return dados
 
     @property
     def a(self):
