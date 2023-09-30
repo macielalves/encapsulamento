@@ -4,7 +4,7 @@ maria = Pessoa('Maria', 5, 20, 100,'F')
 joao = Pessoa('João', 12, 40, 140, 'M')
 pedro = Pessoa('Pedro', 22, 65, 170, 'M')
 bia = Pessoa('Bia', 18, 55, 160, 'F')
-julia = Pessoa('Julia', 30, 65, 170, 'F')
+julia = Pessoa('Júlia', 30, 65, 170, 'F')
 carlos = Pessoa('Carlos', 2, 11, 80, 'M')
 jonas = Pessoa('Jonas', 34, 70, 180, 'M')
 
@@ -29,3 +29,13 @@ bia.morrer()
 pedro.morrer()
 
 jonas.casar(julia)
+
+pedro.casar(bia)  # no além
+
+print(pedro.idade)
+
+joao.idade = 50
+
+# outros testes
+d_joao = joao.__dict__
+print(d_joao.get('_Pessoa__nome', 'Não encontrado'))

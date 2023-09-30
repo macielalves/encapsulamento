@@ -39,7 +39,10 @@ class Pessoa:
         return self.__nome
     @property
     def idade(self):
-        return self.__idade
+        if self.is_alive:
+            return self.__idade
+        else:
+            return f'{self.nome} está mort{"a"if self.sexo.upper()=="F"else "o"}'
     @property
     def peso(self):
         return self.__peso
